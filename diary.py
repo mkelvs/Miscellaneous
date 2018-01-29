@@ -7,6 +7,11 @@ from peewee import *
 #Database file
 db = SqliteDatabase('diary.db')
 
+menu = OrderedDict([
+    ('a', add_entry),
+    ('v', view_entries),
+])
+
 
 class Entry(Model):
     content = TextField()
@@ -23,6 +28,16 @@ def initialize():
 
 def menu_loop():
     """Show the Menu."""
+    choice = None
+
+    while choice != 'q':
+        print("Enter 'q' to quit.")
+        for key, value in menu.items():
+            print('{}) {}'.format(key, value.__doc__))
+        choice = input('Action: ').lower().strip()
+
+        if choice in menu:
+            menu[choice]()
 
 
 def add_entry():
