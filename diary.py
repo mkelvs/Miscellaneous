@@ -2,7 +2,10 @@
 #Create a simple Diary app.
 from collections import OrderedDict
 import datetime
+import sys
+
 from peewee import *
+
 
 #Database file
 db = SqliteDatabase('diary.db')
@@ -25,6 +28,7 @@ def menu_loop():
     choice = None
 
     while choice != 'q':
+        print("\n--- Main menu ---")
         print("Enter 'q' to quit.")
         for key, value in menu.items():
             print('{}) {}'.format(key, value.__doc__)) #prints out the doctstring of the key value
@@ -37,9 +41,25 @@ def menu_loop():
 
 def add_entry():
     """Add an entry."""
+    entry = ""
+    print("Log your idea, type 'done' when finished,")
+    while True:
+        data = input('> ')
+        if data.lower() != 'done':
+            entry += data + '\n'
+        else:
+            break
+
+    # data = sys.stdin.read().strip()
+
+    if entry:
+        if input('Save entry? [Yn]').lower() != 'n':
+            Entry.create(content=data)
+            print("Saved Successfully!")
 
 def view_entries():
     """View preivous entries."""
+
 
 def delete_entry(entry):
     """Delete an entry."""
@@ -49,7 +69,6 @@ menu = OrderedDict([
     ('a', add_entry),
     ('v', view_entries),
 ])
-
 if __name__ == "__main__":
     initialize()
     menu_loop()
