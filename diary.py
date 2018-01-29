@@ -7,6 +7,7 @@ from peewee import *
 #Database file
 db = SqliteDatabase('diary.db')
 
+#create an OrderedDict that has function values
 menu = OrderedDict([
     ('a', add_entry),
     ('v', view_entries),
@@ -33,11 +34,12 @@ def menu_loop():
     while choice != 'q':
         print("Enter 'q' to quit.")
         for key, value in menu.items():
-            print('{}) {}'.format(key, value.__doc__))
+            print('{}) {}'.format(key, value.__doc__)) #prints out the doctstring of the key value
         choice = input('Action: ').lower().strip()
 
         if choice in menu:
-            menu[choice]()
+            menu[choice]() #Executes directly the function from the key value
+                           # menu[a] = add_entry = add_entry()
 
 
 def add_entry():
