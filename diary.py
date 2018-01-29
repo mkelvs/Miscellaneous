@@ -7,13 +7,6 @@ from peewee import *
 #Database file
 db = SqliteDatabase('diary.db')
 
-#create an OrderedDict that has function values
-menu = OrderedDict([
-    ('a', add_entry),
-    ('v', view_entries),
-])
-
-
 class Entry(Model):
     content = TextField()
     timestamp = DateTimeField(default=datetime.datetime.now)
@@ -50,6 +43,12 @@ def view_entries():
 
 def delete_entry(entry):
     """Delete an entry."""
+
+#create an OrderedDict that has function values
+menu = OrderedDict([
+    ('a', add_entry),
+    ('v', view_entries),
+])
 
 if __name__ == "__main__":
     initialize()
