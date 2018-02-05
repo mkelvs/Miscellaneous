@@ -14,6 +14,13 @@ class Inventory:
     def __iter__(self):
             yield from self.slots
 
+    def inventory_value(self):
+        total_value = 0
+        for item in self.slots:
+            total_value += (item.quantity * item.price)
+        print(total_value)
+        return total_value
+
 class Item:
     def __init__(self, name, price, id, quantity):
         self.name = name
@@ -35,6 +42,7 @@ def main():
     print("This is Mark's Inventory List")
     print("Type 'DONE' if you want to quit")
     print("Type 'SHOW' if you want to see your inventory list")
+    print("Type 'VALUE' if you want to see inventory's total value")
     print("Type 'ADD' if you want to add an item")
 
     inventory = Inventory()
@@ -52,6 +60,9 @@ def main():
 
         elif user_input.upper() == 'DONE':
             break
+
+        elif user_input.upper() == 'VALUE':
+            inventory.inventory_value()
 
 
 main()
